@@ -1,4 +1,8 @@
-// ABBZ viewer.js
+// viewer.js (ES module)
+import * as THREE from 'https://cdn.jsdelivr.net/npm/three@0.149.0/build/three.module.js';
+import { OrbitControls } from 'https://cdn.jsdelivr.net/npm/three@0.149.0/examples/jsm/controls/OrbitControls.js';
+import { OBJLoader } from 'https://cdn.jsdelivr.net/npm/three@0.149.0/examples/jsm/loaders/OBJLoader.js';
+
 let scene, camera, renderer, controls;
 let loadedObject = null;
 let raycaster = new THREE.Raycaster();
@@ -25,7 +29,7 @@ function init() {
   renderer.setSize(window.innerWidth, window.innerHeight);
   document.body.appendChild(renderer.domElement);
 
-  controls = new THREE.OrbitControls(camera, renderer.domElement);
+  controls = new OrbitControls(camera, renderer.domElement);
   controls.enableDamping = true;
   controls.dampingFactor = 0.08;
 
@@ -62,7 +66,7 @@ function handleFile(evt) {
 
 function loadOBJFromText(text) {
   if (loadedObject) { scene.remove(loadedObject); disposeHierarchy(loadedObject); loadedObject = null; }
-  const loader = new THREE.OBJLoader();
+  const loader = new OBJLoader();
   let obj;
   try { obj = loader.parse(text); } catch (err) { setStatus('OBJ-Parsing Fehler'); console.error(err); return; }
 
@@ -89,7 +93,8 @@ function loadOBJFromText(text) {
   scene.add(obj);
   buildVertexIndex(obj);
 
-  controls.reset(); controls.target.set(0,0,0);
+  controls.reset();
+  controls.target.set(0,0,0);
   setStatus('Datei geladen');
   distanceEl.textContent = 'Distanz: –';
   snappedPoints = [];
