@@ -3,6 +3,7 @@ import * as THREE from 'https://cdn.jsdelivr.net/npm/three@0.149.0/build/three.m
 import { OrbitControls } from 'https://cdn.jsdelivr.net/npm/three@0.149.0/examples/jsm/controls/OrbitControls.js';
 import { OBJLoader } from 'https://cdn.jsdelivr.net/npm/three@0.149.0/examples/jsm/loaders/OBJLoader.js';
 
+
 let scene, camera, renderer, controls;
 let loadedObject = null;
 let raycaster = new THREE.Raycaster();
@@ -177,3 +178,4 @@ function removeMarkers() {
 }
 
 function animate() { requestAnimationFrame(animate); controls.update(); renderer.render(scene, camera); }
+
